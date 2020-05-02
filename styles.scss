@@ -1,0 +1,39 @@
+* {
+    margin: 0;
+    box-sizing: border-box;
+    background: rgb(14, 14, 14);
+}
+
+@mixin stars($width, $height){
+    width: $width;
+    height: $height;
+    border-radius: 50%;
+    background: white;
+}
+
+@function get-box-shadows ($num-of-shadows){
+// defines first box shadow
+    $shadows: '#{random(2000)}px #{random(2000)}px white';
+// loops the amoount of box shadows passed in
+    @for $i from 2 through $num-of-shadows{
+// redefines value to be current value plus new shadow
+        $shadows: '#{$shadows} , #{random(2000)}px #{random(2000)}px white';
+    }
+// return value once loop complete x times and removes quote marks
+    @return unquote($shadows);
+} 
+
+#small{
+    @include stars(1px, 1px);
+    box-shadow: get-box-shadows(800);
+}
+
+#medium{
+    @include stars(2px, 2px);
+    box-shadow: get-box-shadows(200);
+}
+
+#large{
+    @include stars(5px, 5px);
+    box-shadow: get-box-shadows(100);
+}
