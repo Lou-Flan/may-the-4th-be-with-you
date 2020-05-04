@@ -14,192 +14,224 @@ body{
 }
 
 * {
-    margin: 0;
-    box-sizing: border-box;
+	margin: 0;
+	box-sizing: border-box;
 }
 
-@mixin stars($width, $height, $no-of-shadows, $seconds){
-    width: $width;
-    height: $height;
-    border-radius: 50%;
-    background: white;
-    filter: blur(.5px);
-    box-shadow: get-box-shadows($no-of-shadows);
-    animation: flicker $seconds both infinite;
+@mixin stars($width, $height, $no-of-shadows, $seconds) {
+	width: $width;
+	height: $height;
+	border-radius: 50%;
+	background: white;
+	filter: blur(0.5px);
+	box-shadow: get-box-shadows($no-of-shadows);
+	animation: flicker $seconds both infinite;
 }
 
-@function get-box-shadows ($num-of-shadows){
-// defines first box shadow
-    $shadows: '#{random(2000)}px #{random(2000)}px white';
-// loops the amoount of box shadows passed in
-    @for $i from 2 through $num-of-shadows{
-// redefines value to be current value plus new shadow
-        $shadows: '#{$shadows} , #{random(2000)}px #{random(2000)}px white';
-    }
-// return value once loop complete x times and removes quote marks
-    @return unquote($shadows);
-} 
-
-#small{
-    @include stars(1px, 1px, 2000, 1s);
+@function get-box-shadows($num-of-shadows) {
+	// defines first box shadow
+	$shadows: "#{random(2000)}px #{random(2000)}px white";
+	// loops the amoount of box shadows passed in
+	@for $i from 2 through $num-of-shadows {
+		// redefines value to be current value plus new shadow
+		$shadows: "#{$shadows} , #{random(2000)}px #{random(2000)}px white";
+	}
+	// return value once loop complete x times and removes quote marks
+	@return unquote($shadows);
 }
 
-#medium{
-    @include stars(2px, 2px, 800, .5s);
+#small {
+	@include stars(1px, 1px, 2000, 1s);
 }
 
-#large{
-    @include stars(5px, 5px, 200, 2s);
+#medium {
+	@include stars(2px, 2px, 800, 0.5s);
 }
 
-#planet-container{
-    height: 80vh;
-    position: absolute;
-    top: 0%;
-    left: 0%;
-    width: 100vw;
-    z-index: 1;
+#large {
+	@include stars(5px, 5px, 200, 2s);
 }
 
-#ship{
-    background: rgb(26, 28, 29);
-    position: absolute;
-    bottom: 0%;
-    left: 0%;
-    width: 100vw;
-    height: 20vh;
-    z-index: 10;
-    &::before{
-        content: '';
-        position: absolute;
-        bottom: 0%;
-        height: 25vh;
-        width: 100vw;
-        background: rgb(26, 28, 29);
-        clip-path: polygon(30% 0%, 70% 0%, 100% 100%, 0% 100%);
-    }
-    #speech{
-        width: 45%;
-        color: greenyellow;
-        height: 20vh;
-        z-index: 20;
-        background: rgb(0, 0, 0);
-        position: absolute;
-        bottom: 15%;
-        left: 27%;
-        font-family: courier;
-        padding: 2%;
-        clip-path: polygon(10% 0%, 90% 0%, 100% 100%, 0% 100%);
-        &::before{
-            content: '';
-            width: 90%;
-            height: 80%;
-            clip-path: polygon(10% 0%, 90% 0%, 100% 100%, 0% 100%);
-            background: white;
-            position: absolute;
-            top: 10%;
-            left: 5%;
-            opacity: .1;
-        }
-        p{
-            position: absolute;
-            top: 15%;
-            background: transparent;
-            color: greenyellow;
-            margin: 0 calc(10 * var(--unit));
-            width: 60%;
-            z-index: 20;
-            font-size: calc(5 * var(--unit));
-            transform: skewX(-15deg);
-        }
-    }
+#planet-container {
+	height: 80vh;
+	position: absolute;
+	top: 0%;
+	left: 0%;
+	width: 100vw;
+	z-index: 1;
 }
 
-%buttons{
-    background: greenyellow;
-    width: calc(5 * var(--unit));
-    height: calc(5 * var(--unit));
-    position: absolute;
-    bottom: 10%;
-    z-index: 10;
-    animation: flash .5s infinite linear;
-    box-shadow: calc(8 * var(--unit)) 0px $green, calc(16 * var(--unit)) 0px $green, calc(24 * var(--unit)) 0px $green, calc(32 * var(--unit)) 0px $green, 
-    calc(0 * var(--unit)) 40px $green, calc(8 * var(--unit)) 40px $green, calc(16 * var(--unit)) 40px $green, calc(24 * var(--unit)) 40px $green, calc(32 * var(--unit)) 40px $green;
-}
-#right{
-    @extend %buttons;
-    right: calc(45 * var(--unit));
+#ship {
+	background: rgb(26, 28, 29);
+	position: absolute;
+	bottom: 0%;
+	left: 0%;
+	width: 100vw;
+	height: 20vh;
+	z-index: 10;
+	&::before {
+		content: "";
+		position: absolute;
+		bottom: 0%;
+		height: 25vh;
+		width: 100vw;
+		background: rgb(26, 28, 29);
+		$clip-path: polygon(30% 0%, 70% 0%, 100% 100%, 0% 100%);
+		-webkit-clip-path: $clip-path;
+	}
+	#speech {
+		width: 45%;
+		color: greenyellow;
+		height: 20vh;
+		z-index: 20;
+		background: rgb(0, 0, 0);
+		position: absolute;
+		bottom: 15%;
+		left: 27%;
+		font-family: courier;
+		padding: 2%;
+		$clip-path: polygon(10% 0%, 90% 0%, 100% 100%, 0% 100%);
+		-webkit-clip-path: $clip-path;
+		&::before {
+			content: "";
+			width: 90%;
+			height: 80%;
+			$clip-path: polygon(10% 0%, 90% 0%, 100% 100%, 0% 100%);
+			-webkit-clip-path: $clip-path;
+			background: white;
+			position: absolute;
+			top: 10%;
+			left: 5%;
+			opacity: 0.1;
+		}
+		p {
+			position: absolute;
+			top: 15%;
+			background: transparent;
+			color: greenyellow;
+			margin: 0 calc(10 * var(--unit));
+			width: 60%;
+			z-index: 20;
+			font-size: calc(5 * var(--unit));
+			transform: skewX(-15deg);
+		}
+	}
 }
 
-#left{
-    @extend %buttons;
-    left: calc(15 * var(--unit));
+%buttons {
+	background: greenyellow;
+	width: calc(5 * var(--unit));
+	height: calc(5 * var(--unit));
+	position: absolute;
+	bottom: 10%;
+	z-index: 10;
+	box-shadow: calc(8 * var(--unit)) 0px $green, calc(16 * var(--unit)) 0px $green,
+		calc(24 * var(--unit)) 0px $green, calc(32 * var(--unit)) 0px $green,
+		calc(0 * var(--unit)) 40px $green, calc(8 * var(--unit)) 40px $green,
+		calc(16 * var(--unit)) 40px $green, calc(24 * var(--unit)) 40px $green,
+		calc(32 * var(--unit)) 40px $green;
+}
+#right {
+	@extend %buttons;
+	right: calc(45 * var(--unit));
 }
 
-.new-planet{
-    border-radius: 50%;
-    position: absolute;
-    background: blue;
-    z-index: 3;
-    overflow: hidden;
-    box-shadow: 0px 0px 10px 10px rgba(255, 255, 255, .1);
-    z-index: 100;
-    &:hover{
-        transform: scale(1.1);
-    }
-    &::after {
-        content: '';
-        background: white;
-        border-radius: 50%;
-        width: 25%;
-        height: 25%;
-        position: absolute;
-        left: 50%;
-        top: 10%;
-        opacity: .1;
-        box-shadow: 0px 100px white, 150px 200px white, 0px 300px white, -100px 40px white, -20px 150px white, -130px 150px white,
-        -120px 250px white;
-        animation: spin 30s infinite linear;
-    }
+#left {
+	@extend %buttons;
+	left: calc(15 * var(--unit));
+	animation: flash 0.5s infinite linear;
+}
+
+.new-planet {
+	border-radius: 50%;
+	position: absolute;
+	background: blue;
+	z-index: 3;
+	overflow: hidden;
+	box-shadow: 0px 0px 10px 10px rgba(255, 255, 255, 0.1);
+	z-index: 100;
+	animation: circle 120s infinite linear;
+	&::after {
+		content: "";
+		background: white;
+		border-radius: 50%;
+		width: 25%;
+		height: 25%;
+		position: absolute;
+		left: 50%;
+		top: 10%;
+		opacity: 0.1;
+		box-shadow: 0px 100px white, 150px 200px white, 0px 300px white,
+			-100px 40px white, -20px 150px white, -130px 150px white, -120px 250px white;
+		animation: spin 30s infinite linear;
+	}
 }
 
 @keyframes spin {
-    from{left: 0px;}
-    to{left: 100%;}
+	from {
+		left: 0px;
+	}
+	to {
+		left: 100%;
+	}
+}
+@keyframes circle {
+	from {
+		-webkit-transform: rotate(0deg) translateX(150px) rotate(0deg);
+	}
+	to {
+		-webkit-transform: rotate(360deg) translateX(150px) rotate(-360deg);
+	}
 }
 
 @keyframes moveup {
-    from{top: 0px;}
-    to{top: 100%;}
+	from {
+		top: 0px;
+	}
+	to {
+		top: 100%;
+	}
 }
 
-@keyframes flash{
-    from{background: $green;}
-    to{background: red;}
+@keyframes flash {
+	from {
+		background: $green;
+	}
+	to {
+		background: red;
+	}
 }
 
-@keyframes flicker{
-    0%{
-        opacity: 1;
-    }
-    50%{
-        opacity: .3;
-    }
+@keyframes flicker {
+	0% {
+		opacity: 1;
+	}
+	50% {
+		opacity: 0.3;
+	}
+}
+@keyframes across {
+	from {
+		left: 0%;
+	}
+	to {
+		left: 100%;
+	}
 }
 
-
-img{
-    background: transparent;
-    position: absolute;
-    left: 10%;
-    bottom: 50%;
-    opacity: .3;
+#ds {
+	background: transparent;
+	position: absolute;
+	left: 10%;
+	bottom: 50%;
+	opacity: 0.3;
+	animation: across 60s infinite linear;
 }
-#mf{
-    background: transparent;
-    position: absolute;
-    right: 40%;
-    bottom: 50%;
-    opacity: .6;
-    animation: moveup 60s infinite linear;
+#mf {
+	background: transparent;
+	position: absolute;
+	right: 40%;
+	bottom: 50%;
+	opacity: 0.6;
+	animation: moveup 60s infinite linear;
 }
